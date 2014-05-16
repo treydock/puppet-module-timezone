@@ -1,6 +1,31 @@
 # == Class: timezone
 #
-# Module to manage time zone
+# Manage system's default timezone setting.
+#
+# === Parameters
+#
+# [*timezone*]
+#   The systems default timezone, e.g. 'UTC' or 'Europe/Berlin'.
+#   See /usr/share/zoneinfo for available values.
+#   Default: 'UTC'.
+#
+# [*hwclock_utc*]
+#   Boolean value Indicating if the system's hardware clock is
+#   reflects UTC (true) or localtime (false). This value is only
+#   used on osfamily RedHat.
+#   Default: true.
+#
+# === Examples
+#
+# class { 'timezone': timezone => 'Europe/Berlin' }
+#
+# === Authors
+#
+# Niklas Grossmann <ngrossmann@gmx.net>
+#
+# === Copyright
+#
+# Copyright 2014 Niklas Grossmann, unless otherwise noted.
 #
 class timezone (
   $timezone    = 'UTC',
@@ -14,6 +39,9 @@ class timezone (
   }
   validate_bool($hwclock_utc)
 
+  $tzdata = "/usr/share/zoneinfo/${timezone}"
+  validate_absolute_path($tzdata)
+
   case $::osfamily {
     'RedHat': {
 
@@ -26,11 +54,26 @@ class timezone (
 
       file { '/etc/localtime':
         ensure => link,
-        target => "/usr/share/zoneinfo/${timezone}",
+        target => $tzdata,
+      }
+    }
+    'Debian': {
+      file { '/etc/timezone':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => "$timezone\n",
+      }
+      file { '/etc/localtime':
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => file($tzdata),
       }
     }
     default: {
-      fail("timezone supports osfamily RedHat only. Detected osfamily is <${::osfamily}>.")
+      fail("timezone supports osfamily RedHat and Debian. Detected osfamily is <${::osfamily}>.")
     }
   }
 }
+
