@@ -62,7 +62,7 @@ class timezone (
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => "$timezone\n",
+        content => "${timezone}\n",
       }
       file { '/etc/localtime':
         owner   => 'root',
