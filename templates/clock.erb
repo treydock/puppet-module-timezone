@@ -1,2 +1,8 @@
 ZONE="<%= @timezone %>"
 UTC=<%= @hwclock_utc %>
+<% if @arc_real != nil -%>
+ARC=<%= @arc_real %>
+<% end -%>
+<% if @srm_real != nil -%>
+SRM=<%= @srm_real %>
+<% end -%>

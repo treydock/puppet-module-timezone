@@ -9,9 +9,10 @@ Manage system time zone.
 
 # Compatibility
 ---------------
-This module is built for use with Puppet v3 with Ruby versions 1.8.7, 1.9.3, and 2.0.0 on the following OS families.
+This module is built for use with Puppet v3 with Ruby versions 1.8.7, 1.9.3, and 2.0.0 on the following systems.
 
-* RHEL 6
+* EL 5
+* EL 6
 * Debian
 
 ===
@@ -27,8 +28,27 @@ See /usr/share/zoneinfo for available values.
 
 hwclock_utc
 -----------
-Boolean value Indicating if the system's hardware clock is
-reflects UTC (true) or localtime (false). This value is only
+Boolean value indicating if the system's hardware clock is
+UTC (true) or localtime (false). This value is only
 used on osfamily RedHat.
 
 - *Default*: true
+
+arc
+---
+Boolean value. False indicates that the normal UNIX epoch is in use. Used by EL 5.
+
+- *Default*: undef
+
+srm
+---
+Boolean value. False indicates that the normal UNIX epoch is in use. Used by EL 5.
+
+- *Default*: undef
+
+===
+
+# Contributors
+
+Niklas Grossmann <ngrossmann@gmx.net>
+Garrett Honeycutt <gh@learnpuppet.com>
