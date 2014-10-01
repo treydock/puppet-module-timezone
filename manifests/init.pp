@@ -40,11 +40,13 @@ class timezone (
   case $::osfamily {
     'RedHat': {
 
-      file { '/etc/sysconfig/clock':
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => template('timezone/clock.erb'),
+      if $::operatingsystemmajrelease != 7 {
+        file { '/etc/sysconfig/clock':
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          content => template('timezone/clock.erb'),
+        }
       }
 
       file { '/etc/localtime':

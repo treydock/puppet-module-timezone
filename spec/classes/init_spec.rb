@@ -2,13 +2,14 @@ require 'spec_helper'
 
 describe 'timezone', :type => 'class' do
   describe 'On RedHat' do
-    ['5','6'].each do |release|
+    ['5','6','7'].each do |release|
       describe "release #{release}" do
         context 'with default values for all parameters' do
           let(:facts) do
             {
-              :osfamily          => 'RedHat',
-              :lsbmajdistrelease => :release,
+              :osfamily                  => 'RedHat',
+              :lsbmajdistrelease         => :release,
+              :operatingsystemmajrelease => :release,
             }
           end
 
@@ -17,13 +18,17 @@ describe 'timezone', :type => 'class' do
               with_target('/usr/share/zoneinfo/UTC')
           }
 
-          it {
-            should contain_file('/etc/sysconfig/clock').with({
-              'owner' => 'root',
-              'group' => 'root',
-              'mode'  => '0644',
-            })
-          }
+          if :release == '7'
+            it { should_not contain_file('/etc/sysconfig/clock') }
+          else
+            it {
+              should contain_file('/etc/sysconfig/clock').with({
+                'owner' => 'root',
+                'group' => 'root',
+                'mode'  => '0644',
+              })
+            }
+          end
 
           it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
           it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }

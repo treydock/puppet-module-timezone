@@ -13,6 +13,7 @@ This module is built for use with Puppet v3 with Ruby versions 1.8.7, 1.9.3, and
 
 * EL 5
 * EL 6
+* EL 7
 * Debian
 
 ===
