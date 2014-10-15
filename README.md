@@ -1,7 +1,7 @@
 # puppet-module-timezone
 ===
 
-[![Build Status](https://travis-ci.org/time/puppet-module-timezone.png?branch=master)](https://travis-ci.org/time/puppet-module-timezone)
+[![Build Status](https://api.travis-ci.org/ngrossmann/puppet-module-timezone.png?branch=master)](https://travis-ci.org/ngrossmann/puppet-module-timezone)
 
 Manage system time zone.
 
