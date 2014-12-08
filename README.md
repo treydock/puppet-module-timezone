@@ -9,7 +9,7 @@ Manage system time zone.
 
 # Compatibility
 ---------------
-This module is built for use with Puppet v3 with Ruby versions 1.8.7, 1.9.3, and 2.0.0 on the following systems.
+This module is built for use with Puppet v3 with Ruby versions 1.8.7, 1.9.3, 2.0.0 and 2.1.0 on the following systems.
 
 * EL 5
 * EL 6
