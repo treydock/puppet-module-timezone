@@ -1,5 +1,5 @@
 name 'ngrossmann-timezone'
-version '0.1.0'
+version '1.0.0'
 source 'git://github.com/time/puppet-module-timezone.git'
 author 'ngrossmann'
 license 'Apache License, Version 2.0'
