@@ -1,12 +1,12 @@
 {
-  "name": "ngrossmann-timezone",
+  "name": "ghoneycutt-timezone",
   "version": "1.0.0",
-  "author": "ngrossmann",
+  "author": "ghoneycutt",
   "summary": "Manage system time zone",
   "license": "Apache License, Version 2.0",
-  "source": "git://github.com/time/puppet-module-timezone.git",
-  "project_page": "https://github.com/time/puppet-module-zone",
-  "issues_url": "https://github.com/time/puppet-module-timezone/issues",
+  "source": "git://github.com/ghoneycutt/puppet-module-timezone.git",
+  "project_page": "https://github.com/ghoneycutt/puppet-module-timezone",
+  "issues_url": "https://github.com/ghoneycutt/puppet-module-timezone/issues",
   "description": "Manage system time zone",
   "requirements": [
     {
