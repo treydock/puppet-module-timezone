@@ -1,5 +1,5 @@
 name 'ghoneycutt-timezone'
-version '1.0.0'
+version '1.0.1'
 source 'git://github.com/ghoneycutt/puppet-module-timezone.git'
 author 'ghoneycutt'
 license 'Apache-2.0'
