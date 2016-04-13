@@ -41,8 +41,9 @@ describe 'timezone', :type => 'class' do
             let(:params) { { :arc => arc_value } }
             let(:facts) do
               {
-                :osfamily          => 'RedHat',
-                :lsbmajdistrelease => release,
+                :osfamily                      => 'RedHat',
+                :lsbmajdistrelease             => release,
+                :operatingsystemmajrelease => release,
               }
             end
 
@@ -75,8 +76,9 @@ describe 'timezone', :type => 'class' do
           let(:params) { { :arc => ['invalid','type'] } }
           let(:facts) do
             {
-              :osfamily          => 'RedHat',
-              :lsbmajdistrelease => release,
+              :osfamily                      => 'RedHat',
+              :lsbmajdistrelease             => release,
+              :operatingsystemmajrelease => release,
             }
           end
 
@@ -92,8 +94,9 @@ describe 'timezone', :type => 'class' do
             let(:params) { { :srm => srm_value } }
             let(:facts) do
               {
-                :osfamily          => 'RedHat',
-                :lsbmajdistrelease => release,
+                :osfamily                      => 'RedHat',
+                :lsbmajdistrelease             => release,
+                :operatingsystemmajrelease => release,
               }
             end
 
@@ -126,8 +129,9 @@ describe 'timezone', :type => 'class' do
           let(:params) { { :srm => ['invalid','type'] } }
           let(:facts) do
             {
-              :osfamily          => 'RedHat',
-              :lsbmajdistrelease => release,
+              :osfamily                      => 'RedHat',
+              :lsbmajdistrelease             => release,
+              :operatingsystemmajrelease => release,
             }
           end
 
