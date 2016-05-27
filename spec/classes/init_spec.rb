@@ -153,7 +153,12 @@ describe 'timezone', :type => 'class' do
   end
 
   context "On RedHat system with time-zone Europe/Berlin" do
-    let(:facts) do { :osfamily => 'RedHat' } end
+    let(:facts) do
+      {
+        :osfamily                  => 'RedHat',
+        :operatingsystemmajrelease => '7',
+      }
+    end
 
     it {
       should contain_file('/etc/localtime').with_ensure('link').
