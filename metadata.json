@@ -9,14 +9,8 @@
   "issues_url": "https://github.com/ghoneycutt/puppet-module-timezone/issues",
   "description": "Manage system time zone",
   "requirements": [
-    {
-      "name": "pe",
-      "version_requirement": ">= 3.0.0"
-    },
-    {
-      "name": "puppet",
-      "version_requirement": "3.x"
-    }
+    { "name": "pe", "version_requirement": ">= 3.0.0 < 5.0.0" },
+    { "name": "puppet", "version_requirement": ">= 3.0.0 < 5.0.0" }
   ],
   "operatingsystem_support": [
     {
@@ -66,6 +60,6 @@
     }
   ],
   "dependencies": [
-    {"name":"puppetlabs/stdlib","version_requirement":">= 3.2.0"}
+    {"name":"puppetlabs/stdlib","version_requirement":">= 4.6.0"}
   ]
 }
