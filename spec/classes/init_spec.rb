@@ -52,23 +52,26 @@ describe 'timezone', :type => 'class' do
                 with_target('/usr/share/zoneinfo/UTC')
             }
 
-            it {
-              should contain_file('/etc/sysconfig/clock').with({
-                'owner' => 'root',
-                'group' => 'root',
-                'mode'  => '0644',
-              })
-            }
-
-            if arc_value.to_s == 'true'
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=true$/) }
+            if release == '7'
+              it { should_not contain_file('/etc/sysconfig/clock') }
             else
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=false$/) }
-            end
+              it {
+                should contain_file('/etc/sysconfig/clock').with({
+                  'owner' => 'root',
+                  'group' => 'root',
+                  'mode'  => '0644',
+                })
+              }
+              if arc_value.to_s == 'true'
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=true$/) }
+              else
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=false$/) }
+              end
 
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
-            it { should contain_file('/etc/sysconfig/clock').without_content(/^SRM/) }
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
+              it { should contain_file('/etc/sysconfig/clock').without_content(/^SRM/) }
+            end
           end
         end
 
@@ -105,23 +108,27 @@ describe 'timezone', :type => 'class' do
                 with_target('/usr/share/zoneinfo/UTC')
             }
 
-            it {
-              should contain_file('/etc/sysconfig/clock').with({
-                'owner' => 'root',
-                'group' => 'root',
-                'mode'  => '0644',
-              })
-            }
-
-            if srm_value.to_s == 'true'
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=true$/) }
+            if release == '7'
+              it { should_not contain_file('/etc/sysconfig/clock') }
             else
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=false$/) }
-            end
+              it {
+                should contain_file('/etc/sysconfig/clock').with({
+                  'owner' => 'root',
+                  'group' => 'root',
+                  'mode'  => '0644',
+                })
+              }
 
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
-            it { should contain_file('/etc/sysconfig/clock').without_content(/^ARC/) }
+              if srm_value.to_s == 'true'
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=true$/) }
+              else
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=false$/) }
+              end
+
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
+              it { should contain_file('/etc/sysconfig/clock').without_content(/^ARC/) }
+            end
           end
         end
 
