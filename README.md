@@ -3,7 +3,8 @@
 
 [![Build Status](https://api.travis-ci.org/ghoneycutt/puppet-module-timezone.png?branch=master)](https://travis-ci.org/ghoneycutt/puppet-module-timezone)
 
-Manage system time zone.
+Manage system time zone. To use simply `include ::timezone`. All parameters are
+documented below. The default timezone is UTC.
 
 ===
 
