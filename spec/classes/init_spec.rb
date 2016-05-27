@@ -8,8 +8,8 @@ describe 'timezone', :type => 'class' do
           let(:facts) do
             {
               :osfamily                  => 'RedHat',
-              :lsbmajdistrelease         => :release,
-              :operatingsystemmajrelease => :release,
+              :lsbmajdistrelease         => release,
+              :operatingsystemmajrelease => release,
             }
           end
 
@@ -18,7 +18,7 @@ describe 'timezone', :type => 'class' do
               with_target('/usr/share/zoneinfo/UTC')
           }
 
-          if :release == '7'
+          if release == '7'
             it { should_not contain_file('/etc/sysconfig/clock') }
           else
             it {
@@ -28,12 +28,12 @@ describe 'timezone', :type => 'class' do
                 'mode'  => '0644',
               })
             }
-          end
 
           it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
           it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
           it { should contain_file('/etc/sysconfig/clock').without_content(/^ARC/) }
           it { should contain_file('/etc/sysconfig/clock').without_content(/^SRM/) }
+          end
         end
 
         [true,'true',false,'false'].each do |arc_value|
@@ -41,8 +41,9 @@ describe 'timezone', :type => 'class' do
             let(:params) { { :arc => arc_value } }
             let(:facts) do
               {
-                :osfamily          => 'RedHat',
-                :lsbmajdistrelease => :release,
+                :osfamily                      => 'RedHat',
+                :lsbmajdistrelease             => release,
+                :operatingsystemmajrelease => release,
               }
             end
 
@@ -51,23 +52,26 @@ describe 'timezone', :type => 'class' do
                 with_target('/usr/share/zoneinfo/UTC')
             }
 
-            it {
-              should contain_file('/etc/sysconfig/clock').with({
-                'owner' => 'root',
-                'group' => 'root',
-                'mode'  => '0644',
-              })
-            }
-
-            if arc_value.to_s == 'true'
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=true$/) }
+            if release == '7'
+              it { should_not contain_file('/etc/sysconfig/clock') }
             else
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=false$/) }
-            end
+              it {
+                should contain_file('/etc/sysconfig/clock').with({
+                  'owner' => 'root',
+                  'group' => 'root',
+                  'mode'  => '0644',
+                })
+              }
+              if arc_value.to_s == 'true'
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=true$/) }
+              else
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^ARC=false$/) }
+              end
 
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
-            it { should contain_file('/etc/sysconfig/clock').without_content(/^SRM/) }
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
+              it { should contain_file('/etc/sysconfig/clock').without_content(/^SRM/) }
+            end
           end
         end
 
@@ -75,8 +79,9 @@ describe 'timezone', :type => 'class' do
           let(:params) { { :arc => ['invalid','type'] } }
           let(:facts) do
             {
-              :osfamily          => 'RedHat',
-              :lsbmajdistrelease => :release,
+              :osfamily                      => 'RedHat',
+              :lsbmajdistrelease             => release,
+              :operatingsystemmajrelease => release,
             }
           end
 
@@ -92,8 +97,9 @@ describe 'timezone', :type => 'class' do
             let(:params) { { :srm => srm_value } }
             let(:facts) do
               {
-                :osfamily          => 'RedHat',
-                :lsbmajdistrelease => :release,
+                :osfamily                      => 'RedHat',
+                :lsbmajdistrelease             => release,
+                :operatingsystemmajrelease => release,
               }
             end
 
@@ -102,23 +108,27 @@ describe 'timezone', :type => 'class' do
                 with_target('/usr/share/zoneinfo/UTC')
             }
 
-            it {
-              should contain_file('/etc/sysconfig/clock').with({
-                'owner' => 'root',
-                'group' => 'root',
-                'mode'  => '0644',
-              })
-            }
-
-            if srm_value.to_s == 'true'
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=true$/) }
+            if release == '7'
+              it { should_not contain_file('/etc/sysconfig/clock') }
             else
-              it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=false$/) }
-            end
+              it {
+                should contain_file('/etc/sysconfig/clock').with({
+                  'owner' => 'root',
+                  'group' => 'root',
+                  'mode'  => '0644',
+                })
+              }
 
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
-            it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
-            it { should contain_file('/etc/sysconfig/clock').without_content(/^ARC/) }
+              if srm_value.to_s == 'true'
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=true$/) }
+              else
+                it { should contain_file('/etc/sysconfig/clock').with_content(/^SRM=false$/) }
+              end
+
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^ZONE=\"UTC\"$/) }
+              it { should contain_file('/etc/sysconfig/clock').with_content(/^UTC=true$/) }
+              it { should contain_file('/etc/sysconfig/clock').without_content(/^ARC/) }
+            end
           end
         end
 
@@ -126,8 +136,9 @@ describe 'timezone', :type => 'class' do
           let(:params) { { :srm => ['invalid','type'] } }
           let(:facts) do
             {
-              :osfamily          => 'RedHat',
-              :lsbmajdistrelease => :release,
+              :osfamily                      => 'RedHat',
+              :lsbmajdistrelease             => release,
+              :operatingsystemmajrelease => release,
             }
           end
 
@@ -142,7 +153,12 @@ describe 'timezone', :type => 'class' do
   end
 
   context "On RedHat system with time-zone Europe/Berlin" do
-    let(:facts) do { :osfamily => 'RedHat' } end
+    let(:facts) do
+      {
+        :osfamily                  => 'RedHat',
+        :operatingsystemmajrelease => '7',
+      }
+    end
 
     it {
       should contain_file('/etc/localtime').with_ensure('link').
