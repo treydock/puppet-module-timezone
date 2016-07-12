@@ -8,7 +8,7 @@ end
 
 gem 'metadata-json-lint'
 gem 'puppetlabs_spec_helper', '>= 1.1.1'
-gem 'puppet-lint', '>= 1.0.0'
+gem 'puppet-lint', '>= 1.0', '< 3.0'
 gem 'facter', '>= 1.7.0'
 gem 'rspec-puppet', '~> 2.0'
 gem 'puppet-lint-absolute_classname-check'
@@ -29,4 +29,8 @@ if RUBY_VERSION >= '1.8.7' and RUBY_VERSION < '1.9'
   gem 'rspec', '~> 2.0'
   # rake must be v10 for ruby 1.8.7
   gem 'rake', '~> 10.0'
+end
+
+if RUBY_VERSION >= '1.8.7' and RUBY_VERSION < '2.0'
+  gem 'json', '~> 1.0'
 end
