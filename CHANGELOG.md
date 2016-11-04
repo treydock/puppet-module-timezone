@@ -1,5 +1,10 @@
 # Change Log
 
+## [v1.2.0](https://github.com/ghoneycutt/puppet-module-timezone/tree/v1.2.0) (2016-11-04)
+[Full Changelog](https://github.com/ghoneycutt/puppet-module-timezone/compare/v1.1.1...v1.2.0)
+
+Add support for Ruby v2.3.1
+
 ## [v1.1.1](https://github.com/ghoneycutt/puppet-module-timezone/tree/v1.1.1) (2016-07-12)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-timezone/compare/v1.1.0...v1.1.1)
 
