@@ -1,8 +1,7 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+#
 ZONE="<%= @timezone %>"
+<% if @hwclock_utc != nil -%>
 UTC=<%= @hwclock_utc %>
-<% if @arc_real != nil -%>
-ARC=<%= @arc_real %>
-<% end -%>
-<% if @srm_real != nil -%>
-SRM=<%= @srm_real %>
 <% end -%>

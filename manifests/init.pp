@@ -1,57 +1,40 @@
-# == Class: timezone
+# @summary This module manages the system's default timezone setting.
 #
-# Manage system's default timezone setting.
+# @example Declaring the class
+#   include timezone
+#
+# @param timezone
+#   The systems default timezone, e.g. 'UTC' or 'Europe/Berlin'. See
+#   `/usr/share/zoneinfo` for available values.
+#
+# @param hwclock_utc
+#   Optional boolean value indicating if the system's hardware clock is UTC
+#   (true) or localtime (false). This value is only used on EL 6. If set to
+#   `undef` the `UTC` setting will not be present in `/etc/sysconfig/clock`.
 #
 class timezone (
-  $timezone    = 'UTC',
-  $hwclock_utc = true,
-  $arc         = undef,
-  $srm         = undef,
+  String            $timezone    = 'UTC',
+  Optional[Boolean] $hwclock_utc = undef,
 ) {
 
-  if type3x($hwclock_utc) == 'string' {
-    $hwclock_utc_real = str2bool($hwclock_utc)
-  } else {
-    $hwclock_utc_real = $hwclock_utc
-  }
-  validate_bool($hwclock_utc)
-
   $tzdata = "/usr/share/zoneinfo/${timezone}"
-  validate_absolute_path($tzdata)
 
-  if $arc != undef {
-    if type3x($arc) == 'string' {
-      $arc_real = str2bool($arc)
-    } else {
-      $arc_real = $arc
-    }
-    validate_bool($arc_real)
+  file { '/etc/localtime':
+    ensure => link,
+    target => $tzdata,
   }
 
-  if $srm != undef {
-    if type3x($srm) == 'string' {
-      $srm_real = str2bool($srm)
-    } else {
-      $srm_real = $srm
-    }
-    validate_bool($srm_real)
-  }
-
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
 
-      if versioncmp("${::operatingsystemmajrelease}", '7') != 0 { # lint:ignore:only_variable_string
+
+      if $facts['os']['release']['major'] == '6' {
         file { '/etc/sysconfig/clock':
           owner   => 'root',
           group   => 'root',
           mode    => '0644',
           content => template('timezone/clock.erb'),
         }
-      }
-
-      file { '/etc/localtime':
-        ensure => link,
-        target => $tzdata,
       }
     }
     'Debian': {
@@ -62,15 +45,9 @@ class timezone (
         mode    => '0644',
         content => "${timezone}\n",
       }
-      file { '/etc/localtime':
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => file($tzdata),
-      }
     }
     default: {
-      fail("timezone supports osfamily RedHat and Debian. Detected osfamily is <${::osfamily}>.")
+      fail("Detected os.family <${facts['os']['family']}> is not supported.")
     }
   }
 }
