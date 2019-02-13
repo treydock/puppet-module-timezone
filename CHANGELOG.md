@@ -1,5 +1,13 @@
 # Change Log
 
+## [v2.0.0](https://github.com/ghoneycutt/puppet-module-timezone/tree/v2.0.0)
+
+[Full Changelog](https://github.com/ghoneycutt/puppet-module-timezone/compare/v1.2.1...v2.0.0)
+
+**Merged pull requests:**
+
+- Release v2.0.0 - Modernize module [\#7](https://github.com/ghoneycutt/puppet-module-timezone/pull/7) ([ghoneycutt](https://github.com/ghoneycutt))
+
 ## [v1.2.1](https://github.com/ghoneycutt/puppet-module-timezone/tree/v1.2.1) (2016-11-04)
 [Full Changelog](https://github.com/ghoneycutt/puppet-module-timezone/compare/v1.2.0...v1.2.1)
 
