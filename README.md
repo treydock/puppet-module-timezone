@@ -1,4 +1,4 @@
-# puppet-module-timezone
+# timezone
 
 #### Table of Contents
 
@@ -13,15 +13,15 @@
 
 ## Module description
 
-This module manages the timezone.
+This module manages the timezone. Documented with Puppet Strings at
+[http://ghoneycutt.github.io/puppet-module-timezone/](http://ghoneycutt.github.io/puppet-module-timezone/).
 
 ## Setup
 
 ### What timezone affects
 
 It symlinks `/etc/localtime` to the appropriate timezone under
-`/usr/share/zoneinfo/`. On EL6 it manages `/etc/sysconfig/clock`.  On
-Debian and Ubuntu it manages `/etc/timezone`.
+`/usr/share/zoneinfo/`. On Debian and Ubuntu it manages `/etc/timezone`.
 
 ### Setup requirements
 
@@ -53,39 +53,16 @@ class { 'timezone':
 timezone::timezone: 'Europe/Berlin'
 ```
 
-### If using EL6
-
-You can specify if the hardware clock is set to UTC.
-
-#### Example using a manifest
-
-```puppet
-class { 'timezone':
-  hwclock_utc => true,
-}
-```
-
-#### Example using Hiera
-
-```yaml
-timezone::hwclock_utc: true
-```
-
 ## Limitations
 
-This module has been tested to work on the following platforms with the
-latest releases of Puppet v5 and v6 with the ruby versions associated with those
-platforms. See `.travis.yml` for an exact matrix.
-
-* EL 6
-* EL 7
-* Debian 8
-* Debian 9
-* Ubuntu 14.04 LTS
-* Ubuntu 16.04 LTS
-* Ubuntu 18.04 LTS
+This module officially supports the platforms listed in the
+`metadata.json`. It does not fail on unsupported platforms and has been
+known to work on many Linux platforms since its creation in 2014.
 
 ## Development
 
-See `CONTRIBUTING.md` for information related to the development of this
-module.
+See [CONTRIBUTING.md](CONTRIBUTING.md)
+
+## License
+
+See [LICENSE](LICENSE) file.
